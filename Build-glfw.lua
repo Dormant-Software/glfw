@@ -2,10 +2,7 @@ project "glfw"
     kind "StaticLib"
     language "C"
 
-    -- platforms
-
     files
-
 	{
 
 		"include/GLFW/glfw3.h",
@@ -30,6 +27,7 @@ project "glfw"
 		"src/null_joystick.c"
 	}
 
+	-- platforms
 
     filter "system:windows"
         staticruntime "On" -- MultiThreaded
@@ -63,8 +61,35 @@ project "glfw"
         pic "On"
         staticruntime "On" -- MultiThreaded
         systemversion "latest"
-        targetdir ("Binaries/Windows" .. "/%{prj.name}")
-        objdir ("Binaries/Intermediates/Windows" .. "/%{prj.name}")
+        targetdir ("Binaries/Linux" .. "/%{prj.name}")
+        objdir ("Binaries/Intermediates/Linux" .. "/%{prj.name}")
+    
+
+        files
+		{
+			"src/x11_init.c",
+			"src/x11_monitor.c",
+			"src/x11_window.c",
+			"src/xkb_unicode.c",
+			"src/posix_time.c",
+			"src/posix_thread.c",
+			"src/glx_context.c",
+			"src/egl_context.c",
+			"src/osmesa_context.c",
+			"src/linux_joystick.c"
+		}
+
+		defines
+		{
+			"_GLFW_X11"
+		}
+
+	filter "system:macosx"
+        pic "On"
+        staticruntime "On" -- MultiThreaded
+        systemversion "latest"
+        targetdir ("Binaries/MacOS" .. "/%{prj.name}")
+        objdir ("Binaries/Intermediates/MacOS" .. "/%{prj.name}")
     
 
         files
